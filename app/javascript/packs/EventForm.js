@@ -9,10 +9,9 @@ export default class EventForm extends Component {
             location: ''
         }
     
-        this.handleInput = this.handleInput.bind(this)
     }
 
-    handleInput(event) {
+    handleInput = (event) => {
 
         const newState = {};
         newState[event.target.name] = event.target.value;

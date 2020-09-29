@@ -22,7 +22,7 @@ export default class EventForm extends Component {
           }
         })
         .then(response => {
-          console.log(response)
+          this.props.handleNewEvent(response.data)
         })
         .catch(error => {
           console.log(error)

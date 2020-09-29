@@ -1,10 +1,11 @@
 import React from 'react'
+import Event from './Event'
 
 const EventsList = props => (
   <div>
     {props.events.map(function(event,index){
       return(
-        <div key={index} className="event">{event.title}</div>
+        <Event key={index} event={event}/>
       )
     })}
   </div>

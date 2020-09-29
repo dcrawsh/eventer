@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class EventForm extends Component {
     constructor(props) {
@@ -10,6 +11,24 @@ export default class EventForm extends Component {
         }
     
     }
+
+    handleSubmit = e => {
+        axios({
+          method: 'POST',
+          url: '/events',
+          data: { event: this.state },
+          headers: {
+            'X-CSRF-Token': document.querySelector("meta[name=csrf-token]").content
+          }
+        })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        e.preventDefault()
+      }
 
     handleInput = (event) => {
 
@@ -25,7 +44,7 @@ export default class EventForm extends Component {
         return (
             <div>
                 <h4>Create an Event</h4>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <input onChange={this.handleInput} type='text' name='title' placeholder='Title' value={this.state.title} />
                     <input onChange={this.handleInput} type='text' name='start_datetime' placeholder='Date' value={this.state.start_datetime} />
                     <input onChange={this.handleInput} type='text' name='location' placeholder='Location' value={this.state.location} />

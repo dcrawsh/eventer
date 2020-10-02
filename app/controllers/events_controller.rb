@@ -9,12 +9,12 @@ class EventsController < ApplicationController
         if @event.save
             render json: @event 
         else 
-            render json: @event.erros, status: :unprocessible_entity
+            render json: @event.errors, status: :unprocessable_entity
         end
     end
 
     private
-    
+
     def event_params
         params.require(:event).permit(:title, :start_datetime, :location)
     end

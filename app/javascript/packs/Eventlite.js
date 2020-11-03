@@ -68,17 +68,18 @@ class Eventlite extends React.Component {
     
           case 'start_datetime':
           [fieldValid, fieldError] = validations.checkMinLength(fieldValue, 1)
-          
           if(!fieldValid){
               errors = errors.concat([fieldError])
           }
-          if(Date.parse(fieldValue) <= Date.now()) {
-            errors = errors.concat(["can't be in the past"])
-            fieldValid = false
+
+          [fieldValid, fieldError] = validations.timeShouldBeInFuture(fieldValue)
+          if(!fieldValue) {
+            errors = errors.concat([fieldError])
+    
           }
           break;
         }
-        console.log(errors)
+        
         const newState = {formErrors: {...this.state.formErrors, [fieldName]: errors}}
         newState[fieldName] = {...this.state[fieldName], valid: fieldValid}
         this.setState(newState, this.validateForm)

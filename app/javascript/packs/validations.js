@@ -7,6 +7,14 @@ const validations = {
       } else {
         return [false, `length should be at least ${minLength} characters`]
       }
+    },
+
+    timeShouldBeInFuture: function (time){
+        if(Date.parse(time) > Date.now()){
+            return [true, ""]
+        } else {
+            return [false, "can't be in the past"]
+        }
     }
   }
   

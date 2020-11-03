@@ -20,6 +20,20 @@ class Eventlite extends React.Component {
         }
     }
 
+    static formValidations = {
+        title: [
+          (value) => { return(validations.checkMinLength(value, 3)) }
+        ],
+        start_datetime: [
+          (value) => { return(validations.checkMinLength(value, 1)) },
+          (value) => { return(validations.timeShouldBeInFuture(value)) }
+        ],
+        location: [
+          (value) => { return(validations.checkMinLength(value, 1)) }
+        ]
+      }
+    
+
     resetFormErrors = () => this.setState({formErrors: {}})
 
 
@@ -45,45 +59,24 @@ class Eventlite extends React.Component {
         e.preventDefault()
       }
 
-      validateField(fieldName, fieldValue) {
+      validateField(fieldName, fieldValue, fieldValidations) {
         let fieldValid = true
-        let errors = []
-        let fieldError = ''
-        switch(fieldName) {
-          case 'title':
-          [fieldValid,fieldError] = validations.checkMinLength(fieldValue, 3)
-          if(!fieldValid){
-              errors = errors.concat([fieldError])
-          }
-          break;
-    
-          case 'location':
-          
-          [fieldValid, fieldError] = validations.checkMinLength(fieldValue, 1)
-          
-          if(!fieldValue) {
+        let errors = fieldValidations.reduce((errors, validation) => {
+          let [valid, fieldError] = validation(fieldValue)
+          if(!valid) {
             errors = errors.concat([fieldError])
           }
-          break;
+          return(errors);
+        }, []);
     
-          case 'start_datetime':
-          [fieldValid, fieldError] = validations.checkMinLength(fieldValue, 1)
-          if(!fieldValid){
-              errors = errors.concat([fieldError])
-          }
-
-          [fieldValid, fieldError] = validations.timeShouldBeInFuture(fieldValue)
-          if(!fieldValue) {
-            errors = errors.concat([fieldError])
+        fieldValid = errors.length === 0
     
-          }
-          break;
-        }
-        
         const newState = {formErrors: {...this.state.formErrors, [fieldName]: errors}}
         newState[fieldName] = {...this.state[fieldName], valid: fieldValid}
         this.setState(newState, this.validateForm)
       }
+        
+        
 
       validateForm() {
         this.setState({formValid: this.state.title.valid && this.state.location.valid && this.state.start_datetime.valid})
@@ -96,8 +89,8 @@ class Eventlite extends React.Component {
         const name = e.target.name
         const value = e.target.value
         const newState = {}
-        newState[name] = {...this.state[name], value: e.target.value}
-        this.setState(newState, () => this.validateField(name,value))
+        newState[name] = {...this.state[name], value: value}
+        this.setState(newState, () => this.validateField(name, value, Eventlite.formValidations[name]))
       }
 
     addNewEvent = (event) => {

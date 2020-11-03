@@ -4,6 +4,7 @@ import EventsList from './EventsList'
 import EventForm from './EventForm'
 import axios from 'axios'
 import FormErrors from './FormErrors'
+import validations from './validations'
 
 
 class Eventlite extends React.Component {
@@ -47,39 +48,55 @@ class Eventlite extends React.Component {
       validateField(fieldName, fieldValue) {
         let fieldValid = true
         let errors = []
+        let fieldError = ''
         switch(fieldName) {
           case 'title':
-          if(fieldValue.length <= 2) {
-            errors = errors.concat(["is too short (minimum is 3 characters)"])
-            fieldValid = false
+          [fieldValid,fieldError] = validations.checkMinLength(fieldValue, 3)
+          if(!fieldValid){
+              errors = errors.concat([fieldError])
           }
           break;
     
           case 'location':
-          if(fieldValue.length === 0) {
-            errors = errors.concat(["can't be blank"])
-            fieldValid = false
+          
+          [fieldValid, fieldError] = validations.checkMinLength(fieldValue, 1)
+          
+          if(!fieldValue) {
+            errors = errors.concat([fieldError])
           }
           break;
     
           case 'start_datetime':
-          if(fieldValue.length === 0) {
-            errors = errors.concat(["can't be blank"])
-            fieldValid = false
-          } else if(Date.parse(fieldValue) <= Date.now()) {
+          [fieldValid, fieldError] = validations.checkMinLength(fieldValue, 1)
+          
+          if(!fieldValid){
+              errors = errors.concat([fieldError])
+          }
+          if(Date.parse(fieldValue) <= Date.now()) {
             errors = errors.concat(["can't be in the past"])
             fieldValid = false
           }
           break;
         }
+        console.log(errors)
+        const newState = {formErrors: {...this.state.formErrors, [fieldName]: errors}}
+        newState[fieldName] = {...this.state[fieldName], valid: fieldValid}
+        this.setState(newState, this.validateForm)
       }
+
+      validateForm() {
+        this.setState({formValid: this.state.title.valid && this.state.location.valid && this.state.start_datetime.valid})
+      }
+    
+    
     
       handleInput = e => {
         e.preventDefault()
         const name = e.target.name
+        const value = e.target.value
         const newState = {}
         newState[name] = {...this.state[name], value: e.target.value}
-        this.setState(newState, this.validateForm)
+        this.setState(newState, () => this.validateField(name,value))
       }
 
     addNewEvent = (event) => {

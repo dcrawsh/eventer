@@ -5,6 +5,7 @@ import EventForm from './EventForm'
 import axios from 'axios'
 import FormErrors from './FormErrors'
 import validations from './validations'
+import PropTypes from 'prop-types'
 
 
 class Eventlite extends React.Component {
@@ -19,6 +20,8 @@ class Eventlite extends React.Component {
             formValid: false
         }
     }
+
+    
 
     static formValidations = {
         title: [
@@ -111,6 +114,10 @@ class Eventlite extends React.Component {
       )
     }
   }
+
+  Eventlite.propTypes = {
+    events: PropTypes.array.isRequired
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const node = document.getElementById('events_data')

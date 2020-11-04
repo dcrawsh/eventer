@@ -19,6 +19,7 @@ class Eventer extends React.Component {
             formErrors: {},
             formValid: false
         }
+        this.logo = React.createRef()
     }
 
     
@@ -84,6 +85,11 @@ class Eventer extends React.Component {
       validateForm() {
         this.setState({formValid: this.state.title.valid && this.state.location.valid && this.state.start_datetime.valid})
       }
+
+      changeLogoColor = () => {
+        const colors = ["red", "blue", "green", "violet"]
+        this.logo.current.style.color = colors[Math.floor(Math.random() * colors.length)]
+      }
     
     
     
@@ -100,12 +106,13 @@ class Eventer extends React.Component {
         const events = [event, ...this.state.events].sort(function(a, b){
             return new Date(a.start_datetime) - new Date(b.start_datetime)
           })
-        this.setState({events: events})
+        this.setState({events: events}, this.changeLogoColor)
     }
     
     render() {
       return (
         <div>
+          <h1 className="logo" ref={this.logo}>Eventer</h1>
           <FormErrors formErrors={this.state.formErrors}/>
           <EventForm title={this.state.title.value} location={this.state.location.value} start_datetime={this.state.start_datetime.value} handleSubmit={this.handleSubmit} handleInput={this.handleInput} 
           handleNewEvent={this.addNewEvent} formValid={this.state.formValid}/>

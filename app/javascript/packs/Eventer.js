@@ -8,7 +8,7 @@ import validations from './validations'
 import PropTypes from 'prop-types'
 
 
-class Eventlite extends React.Component {
+class Eventer extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
@@ -93,7 +93,7 @@ class Eventlite extends React.Component {
         const value = e.target.value
         const newState = {}
         newState[name] = {...this.state[name], value: value}
-        this.setState(newState, () => this.validateField(name, value, Eventlite.formValidations[name]))
+        this.setState(newState, () => this.validateField(name, value, Eventer.formValidations[name]))
       }
 
     addNewEvent = (event) => {
@@ -115,7 +115,7 @@ class Eventlite extends React.Component {
     }
   }
 
-  Eventlite.propTypes = {
+  Eventer.propTypes = {
     events: PropTypes.array.isRequired
 }
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const node = document.getElementById('events_data')
     const data = JSON.parse(node.getAttribute('data'))
     ReactDOM.render(
-        <Eventlite events={data}/>,
+        <Eventer events={data}/>,
         document.body.appendChild(document.createElement('div'))
     )
 })

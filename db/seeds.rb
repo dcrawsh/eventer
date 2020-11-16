@@ -7,23 +7,23 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 events = Event.create([
   {
-    title: "London Retail Expo",
+    title: "New Seasons Expo",
     start_datetime: "Mon, 14 Oct 2019",
-    location: "London Excel Centre"
+    location: "New Seasons Concordia"
   },
   {
     title: "Enterprise Sales Training Workshop",
     start_datetime: "Tue, 15 Oct 2019",
-    location: "Expert Sales Company Headquarters"
+    location: "Oregon Convention Center"
   },
   {
     title: "Ruby Hack Night",
     start_datetime: "Fri, 18 Oct 2019",
-    location: "Learnetto Headquarters"
+    location: "Multnomah County Library"
   },
   {
     title: "Beginners Salsa dance meetup",
     start_datetime: "Sat, 14 Oct 2019",
-    location: "Bar Salsa"
+    location: "Aztec Willie's Taqueria"
   }
 ])

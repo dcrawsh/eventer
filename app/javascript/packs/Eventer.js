@@ -61,6 +61,12 @@ class Eventer extends React.Component {
           console.log(error.response.data)
         })
         e.preventDefault()
+        this.setState({ title: {value: '', valid: false},
+        start_datetime: {value: '', valid: false},
+        location: {value: '', valid: false},
+        formErrors: {},
+        formValid: false})
+
       }
 
       validateField(fieldName, fieldValue, fieldValidations) {

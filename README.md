@@ -1,24 +1,25 @@
-# README
+# Portland Eventer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Portland Eventer Live Link](https://eventcentaur.herokuapp.com/)
 
-Things you may want to cover:
+Eventer, an Eventbrite clone, is a full stack event discovery and planning web application. The app allows users to perform all CRUD actions including finding, creating, and registering for events that can be viewed and bookmarked by other users. It was developed using Ruby on Rails backend, PostgreSQL database, and React/Redux frontend.
 
-* Ruby version
+# Key Features
+- Create/Read/Update/Delete events
+- Event Registrations and Bookmarks
 
-* System dependencies
+### Future Features
+- Utilize existing Google Maps API to display map with location marker for/on each event page
+- User authentication
+- Uploading images via AWS
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Technologies Used
+- Front-end:
+  - React
+  - Redux
+- Back-end:
+  - Ruby on Rails
+  - PostgreSQL
+- Cloud:
+  - AWS S3
+  - Heroku

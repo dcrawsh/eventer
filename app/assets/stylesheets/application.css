@@ -59,6 +59,10 @@
     padding: 20px;
     border-radius: 15px;
     background-color:#e8ffff ;
+    position: relative;
+  }
+  .event:hover {
+    bottom: 3px;
   }
 
   .event-datetime{

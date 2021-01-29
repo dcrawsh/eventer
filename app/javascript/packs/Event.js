@@ -16,7 +16,9 @@ const deleteEvent = () => {
     headers: {
       'X-CSRF-Token': document.querySelector("meta[name=csrf-token]").content
     }
-  }).then(() => location.reload());
+  }).then(() => {
+    
+    location.reload()});
 }
 
 

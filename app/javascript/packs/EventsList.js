@@ -7,7 +7,7 @@ const EventsList = props => (
   <div>
     {props.events.map(function(event,index){
       return(
-        <Event key={event.id} event={event}/>
+        <Event changeLogoColor={props.changeLogoColor} key={event.id} event={event}/>
       )
     })}
   </div>

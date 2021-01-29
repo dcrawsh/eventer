@@ -22,6 +22,10 @@ class Eventer extends React.Component {
         this.logo = React.createRef()
     }
 
+    componentDidMount() {
+      this.changeLogoColor()
+    }
+
     
 
     static formValidations = {
@@ -93,7 +97,7 @@ class Eventer extends React.Component {
       }
 
       changeLogoColor = () => {
-        const colors = ["red", "blue", "green", "violet"]
+        const colors = ["red", "blue", "green", "violet","aqua","lime","crimson","royalblue","khaki","firebrick","orangered","yellow","indigo","darkmagenta"]
         this.logo.current.style.color = colors[Math.floor(Math.random() * colors.length)]
       }
     
@@ -122,7 +126,7 @@ class Eventer extends React.Component {
           <FormErrors formErrors={this.state.formErrors}/>
           <EventForm title={this.state.title.value} location={this.state.location.value} start_datetime={this.state.start_datetime.value} handleSubmit={this.handleSubmit} handleInput={this.handleInput} 
           handleNewEvent={this.addNewEvent} formValid={this.state.formValid}/>
-          <EventsList events={this.state.events} />
+          <EventsList changeLogoColor={this.changeLogoColor} events={this.state.events} />
         </div>
       )
     }
